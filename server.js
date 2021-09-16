@@ -16,6 +16,7 @@ app.get('/api/articles', function (req, res) {
 		}
 	});
 });
+
 app.post('/api/articles', function (req, res) {
 	var article = new ArticleModel({
 		title: req.body.title,
@@ -23,6 +24,7 @@ app.post('/api/articles', function (req, res) {
 		description: req.body.description,
 		images: req.body.images
 	});
+
 	article.save(function (err) {
 		if (!err) {
 			log.info("article created");
@@ -31,7 +33,6 @@ app.post('/api/articles', function (req, res) {
 				article: article
 			});
 		} else {
-			console.log(err);
 			if (err.name == 'ValidationError') {
 				res.statusCode = 400;
 				res.send({ error: 'Validation error' });
@@ -43,6 +44,7 @@ app.post('/api/articles', function (req, res) {
 		}
 	});
 });
+
 app.get('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) {
 		if (!article) {
@@ -58,6 +60,7 @@ app.get('/api/articles/:id', function (req, res) {
 		}
 	});
 });
+
 app.put('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) {
 		if (!article) {
